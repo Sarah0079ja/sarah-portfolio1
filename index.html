@@ -479,10 +479,10 @@ section{position:relative}
       </div>
     </div>
     <div class="cf reveal d3">
-      <div><label class="cf-label">Name</label><input type="text" class="cf-in" placeholder="Jean Dupont"/></div>
-      <div><label class="cf-label">Email</label><input type="email" class="cf-in" placeholder="jean@company.fr"/></div>
-      <div><label class="cf-label">Company</label><input type="text" class="cf-in" placeholder="Acme SAS"/></div>
-      <div><label class="cf-label">Role</label><input type="text" class="cf-in" placeholder="DevOps Engineer, SRE..."/></div>
+      <div><label class="cf-label">Name</label><input type="text" name="name"class="cf-in" placeholder="Jean Dupont"/></div>
+      <div><label class="cf-label">Email</label><input type="email" name="email"class="cf-in" placeholder="jean@company.fr"/></div>
+      <div><label class="cf-label">Company</label><input type="text" name="company" class="cf-in" placeholder="Acme SAS"/></div>
+      <div><label class="cf-label">Role</label><input type="text" name="role"class="cf-in" placeholder="DevOps Engineer, SRE..."/></div>
       <div class="cf-full"><label class="cf-label">Message</label><textarea class="cf-ta" placeholder="Tell me about the opportunity..."></textarea></div>
       <div class="cf-full"><button class="cf-btn" id="cfbtn">Send Message →</button></div>
     </div>
@@ -499,11 +499,44 @@ section{position:relative}
   </div>
 </section>
 
-<script>
+document.getElementById('cfbtn').addEventListener('click', async function() {
+const name = document.querySelectorAll('.cf-in')[0].value;
+const email = document.querySelectorAll('.cf-in')[1].value;
+const company = document.querySelectorAll('.cf-in')[2].value;
+const role = document.querySelectorAll('.cf-in')[3].value;
+const message = document.querySelector('.cf-ta').value;
+
+if (!name || !email || !message) {
+alert('Please fill in name, email, and message.');
+return;
+}
+
+this.textContent = 'Sending...';
+
+const res = await fetch('https://formspree.io/f/xeewwgyy', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ name, email, company, role, message })
+});
+
+if (res.ok) {
+this.textContent = '✓ Message sent!';
+this.style.background = '#d4f5d4';
+setTimeout(() => {
+this.textContent = 'Send Message →';
+this.style.background = '';
+}, 3000);
+} else {
+this.textContent = 'Failed. Try emailing directly.';
+}
+});
+
+
+<!-- <script>
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});},{threshold:0.08});
 document.querySelectorAll('.reveal,.reveal-left').forEach(el=>obs.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
 document.getElementById('cfbtn').addEventListener('click',function(){this.textContent='✓ Message sent!';this.style.background='#d4f5d4';setTimeout(()=>{this.textContent='Send Message →';this.style.background='';},3000);});
-</script>
+</script> -->
 </body>
 </html>
