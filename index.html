@@ -499,6 +499,7 @@ section{position:relative}
   </div>
 </section>
 
+<script>
 document.getElementById('cfbtn').addEventListener('click', async function() {
 const name = document.querySelectorAll('.cf-in')[0].value;
 const email = document.querySelectorAll('.cf-in')[1].value;
@@ -530,7 +531,7 @@ this.style.background = '';
 this.textContent = 'Failed. Try emailing directly.';
 }
 });
-
+</script>
 
 <!-- <script>
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});},{threshold:0.08});
