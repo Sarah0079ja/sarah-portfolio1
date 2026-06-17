@@ -507,6 +507,10 @@ const company = document.querySelectorAll('.cf-in')[2].value;
 const role = document.querySelectorAll('.cf-in')[3].value;
 const message = document.querySelector('.cf-ta').value;
 
+const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') }); }, { threshold: 0.08 });
+document.querySelectorAll('.reveal,.reveal-left').forEach(el => obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function (e) { const t = document.querySelector(this.getAttribute('href')); if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
+
 if (!name || !email || !message) {
 alert('Please fill in name, email, and message.');
 return;
