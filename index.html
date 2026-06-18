@@ -120,7 +120,7 @@ section{position:relative}
 .proj-card:hover::before{transform:scaleX(1)}
 .proj-thumb{height:140px;border-radius:3px;margin-bottom:.5rem;position:relative;overflow:hidden}
 .pt-1{background:#b8d4ce}.pt-2{background:#d4a99a}.pt-3{background:#c4bdd6}
-.pt-4{background:#b5bda4}.pt-5{background:#d4c4a8}.pt-6{background:#c4896a}
+.pt-4{background:#b5bda4}.pt-5{background:#d4c4a8}.pt-6{background:#c4896a}.pt-7{background:#a8b4c4}
 .proj-arrow-btn{position:absolute;top:.85rem;right:.85rem;width:28px;height:28px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:.7rem;transition:transform .25s}
 .proj-card:hover .proj-arrow-btn{transform:rotate(45deg)}
 .proj-cat{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400}
@@ -185,6 +185,19 @@ section{position:relative}
 .marquee-item::after{content:'·';color:var(--muted2)}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+.proj-carousel-wrap{overflow:hidden;border:1px solid var(--rule);border-radius:4px}
+.proj-carousel-row{overflow:hidden;border-bottom:1px solid var(--rule)}
+.proj-carousel-row:last-child{border-bottom:none}
+.proj-carousel-track{display:flex;width:max-content;animation:proj-scroll-left 45s linear infinite}
+.proj-carousel-track--rev{animation:proj-scroll-right 35s linear infinite}
+.proj-carousel-wrap .proj-card{width:361.33px;min-width:361.33px;height:389.04px;flex-shrink:0;border-right:1px solid var(--rule);padding:1.25rem;gap:.65rem}
+.proj-carousel-wrap .proj-thumb{height:100px}
+.proj-carousel-wrap .proj-title{font-size:.85rem}
+.proj-carousel-wrap .proj-desc{font-size:.7rem}
+.proj-carousel-row:hover .proj-carousel-track{animation-play-state:paused}
+@keyframes proj-scroll-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes proj-scroll-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
 @media(max-width:900px){
   .hero{grid-template-columns:1fr}.hero-left{padding:8rem 1.5rem 3rem}.hero-right{padding:2rem 1.5rem 4rem;border-top:1px solid var(--rule)}
   .nav{padding:1rem 1.5rem}.nav-links{display:none}
@@ -192,6 +205,7 @@ section{position:relative}
   .about-grid,.skills-inner,.exp-header,.contact-top{grid-template-columns:1fr;gap:2.5rem}
   .skills-heading{position:static}
   .proj-grid{grid-template-columns:1fr}
+  .proj-carousel-wrap .proj-card{min-width:200px}
   .exp-row{grid-template-columns:1fr 1fr;gap:1rem}.er-date{grid-column:1/-1}.er-tags{flex-direction:row;align-items:flex-start}
   .stat-strip{grid-template-columns:1fr}.ss-item{border-right:none;border-bottom:1px solid var(--rule)}.ss-item:last-child{border-bottom:none}
   .cf{grid-template-columns:1fr}.cf-full{grid-column:1}
@@ -375,49 +389,117 @@ section{position:relative}
       <h2 class="proj-heading reveal-left">Production<br/><em>work.</em></h2>
       <p class="proj-sub reveal">Real infrastructure. Real repositories. All live on GitHub.</p>
     </div>
-    <div class="proj-grid">
-      <div class="proj-card reveal d1" onclick="window.open('https://github.com/Sarah0079ja/ecomm-devops','_blank')">
-        <div class="proj-thumb pt-1"><div class="proj-arrow-btn">↗</div></div>
-        <div class="proj-cat">Featured · E-Commerce</div>
-        <div class="proj-title">E-Commerce DevOps Platform</div>
-        <p class="proj-desc">Kubernetes-orchestrated full-stack e-commerce with GitOps CI/CD, Terraform IaC, and full observability. 99.9% uptime, halved deploy times.</p>
-        <div class="proj-tags"><span class="ptag">Kubernetes</span><span class="ptag">Terraform</span><span class="ptag">ArgoCD</span><span class="ptag">AWS</span></div>
+    <!-- Top carousel: right to left — 4 cards (duplicated for seamless loop) -->
+    <div class="proj-carousel-wrap">
+    <div class="proj-carousel-row">
+      <div class="proj-carousel-track">
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/ecomm-devops','_blank')">
+          <div class="proj-thumb pt-1"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Featured · E-Commerce</div>
+          <div class="proj-title">E-Commerce DevOps Platform</div>
+          <p class="proj-desc">Kubernetes-orchestrated full-stack e-commerce with GitOps CI/CD, Terraform IaC, and full observability. 99.9% uptime, halved deploy times.</p>
+          <div class="proj-tags"><span class="ptag">Kubernetes</span><span class="ptag">Terraform</span><span class="ptag">ArgoCD</span><span class="ptag">AWS</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/Microservice-CICD-Pipeline-for-Ecommerce-store','_blank')">
+          <div class="proj-thumb pt-2"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">CI/CD · Microservices</div>
+          <div class="proj-title">Microservice CI/CD Pipeline</div>
+          <p class="proj-desc">Enterprise multi-stage pipeline with automated testing, SonarQube security scanning, and zero-downtime Kubernetes rollouts.</p>
+          <div class="proj-tags"><span class="ptag">Docker</span><span class="ptag">GitHub Actions</span><span class="ptag">SonarQube</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/vector8-devops-poc','_blank')">
+          <div class="proj-thumb pt-3"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Proof of Concept · GCP</div>
+          <div class="proj-title">Vector8 DevOps PoC</div>
+          <p class="proj-desc">Cloud-native DevOps patterns from scratch — IaC automation, container orchestration, GitOps workflows, and monitoring on GCP.</p>
+          <div class="proj-tags"><span class="ptag">Terraform</span><span class="ptag">GitOps</span><span class="ptag">GCP</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/AI-Devops-Kubernetes-Agent-01','_blank')">
+          <div class="proj-thumb pt-7"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">AI · Kubernetes</div>
+          <div class="proj-title">AI DevOps Kubernetes Agent</div>
+          <p class="proj-desc">AI-powered Kubernetes troubleshooting platform that autonomously investigates cluster failures, analyzes logs and events, identifies root causes via LLM integration, and suggests fixes through a real-time dashboard.</p>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">Kubernetes</span><span class="ptag">FastAPI</span><span class="ptag">AI/LLM</span><span class="ptag">Docker</span></div>
+        </div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/ecomm-devops','_blank')">
+          <div class="proj-thumb pt-1"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Featured · E-Commerce</div>
+          <div class="proj-title">E-Commerce DevOps Platform</div>
+          <p class="proj-desc">Kubernetes-orchestrated full-stack e-commerce with GitOps CI/CD, Terraform IaC, and full observability. 99.9% uptime, halved deploy times.</p>
+          <div class="proj-tags"><span class="ptag">Kubernetes</span><span class="ptag">Terraform</span><span class="ptag">ArgoCD</span><span class="ptag">AWS</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/Microservice-CICD-Pipeline-for-Ecommerce-store','_blank')">
+          <div class="proj-thumb pt-2"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">CI/CD · Microservices</div>
+          <div class="proj-title">Microservice CI/CD Pipeline</div>
+          <p class="proj-desc">Enterprise multi-stage pipeline with automated testing, SonarQube security scanning, and zero-downtime Kubernetes rollouts.</p>
+          <div class="proj-tags"><span class="ptag">Docker</span><span class="ptag">GitHub Actions</span><span class="ptag">SonarQube</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/vector8-devops-poc','_blank')">
+          <div class="proj-thumb pt-3"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Proof of Concept · GCP</div>
+          <div class="proj-title">Vector8 DevOps PoC</div>
+          <p class="proj-desc">Cloud-native DevOps patterns from scratch — IaC automation, container orchestration, GitOps workflows, and monitoring on GCP.</p>
+          <div class="proj-tags"><span class="ptag">Terraform</span><span class="ptag">GitOps</span><span class="ptag">GCP</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/AI-Devops-Kubernetes-Agent-01','_blank')">
+          <div class="proj-thumb pt-7"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">AI · Kubernetes</div>
+          <div class="proj-title">AI DevOps Kubernetes Agent</div>
+          <p class="proj-desc">AI-powered Kubernetes troubleshooting platform that autonomously investigates cluster failures, analyzes logs and events, identifies root causes via LLM integration, and suggests fixes through a real-time dashboard.</p>
+          <div class="proj-tags"><span class="ptag">Python</span><span class="ptag">Kubernetes</span><span class="ptag">FastAPI</span><span class="ptag">AI/LLM</span><span class="ptag">Docker</span></div>
+        </div>
       </div>
-      <div class="proj-card reveal d2" onclick="window.open('https://github.com/Sarah0079ja/Microservice-CICD-Pipeline-for-Ecommerce-store','_blank')">
-        <div class="proj-thumb pt-2"><div class="proj-arrow-btn">↗</div></div>
-        <div class="proj-cat">CI/CD · Microservices</div>
-        <div class="proj-title">Microservice CI/CD Pipeline</div>
-        <p class="proj-desc">Enterprise multi-stage pipeline with automated testing, SonarQube security scanning, and zero-downtime Kubernetes rollouts.</p>
-        <div class="proj-tags"><span class="ptag">Docker</span><span class="ptag">GitHub Actions</span><span class="ptag">SonarQube</span></div>
+    </div>
+    <!-- Bottom carousel: left to right — 3 cards (duplicated for seamless loop) -->
+    <div class="proj-carousel-row">
+      <div class="proj-carousel-track proj-carousel-track--rev">
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/Fullstack-devops-app','_blank')">
+          <div class="proj-thumb pt-4"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Full Stack · DevOps</div>
+          <div class="proj-title">Full-Stack DevOps App</div>
+          <p class="proj-desc">End-to-end containerised React/Node.js app with production CI/CD pipeline and cloud infrastructure provisioned via code.</p>
+          <div class="proj-tags"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">Docker</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/oestopath-demo','_blank')">
+          <div class="proj-thumb pt-5"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Healthcare · GDPR</div>
+          <div class="proj-title">Osteopath Demo Deployment</div>
+          <p class="proj-desc">GDPR-aware cloud deployment for a healthcare web app with IAM, encryption, and automated infrastructure pipeline.</p>
+          <div class="proj-tags"><span class="ptag">Docker</span><span class="ptag">Terraform</span><span class="ptag">GDPR</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/CICD-Web-deployments/tree/main/Boardgame','_blank')">
+          <div class="proj-thumb pt-6"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">CI/CD · Web Deploy</div>
+          <div class="proj-title">Boardgame CI/CD Deployment</div>
+          <p class="proj-desc">Automated build, test, and deploy pipeline with branch-based environment strategy and rollback capabilities.</p>
+          <div class="proj-tags"><span class="ptag">GitHub Actions</span><span class="ptag">Docker</span><span class="ptag">CI/CD</span></div>
+        </div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/Fullstack-devops-app','_blank')">
+          <div class="proj-thumb pt-4"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Full Stack · DevOps</div>
+          <div class="proj-title">Full-Stack DevOps App</div>
+          <p class="proj-desc">End-to-end containerised React/Node.js app with production CI/CD pipeline and cloud infrastructure provisioned via code.</p>
+          <div class="proj-tags"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">Docker</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/oestopath-demo','_blank')">
+          <div class="proj-thumb pt-5"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">Healthcare · GDPR</div>
+          <div class="proj-title">Osteopath Demo Deployment</div>
+          <p class="proj-desc">GDPR-aware cloud deployment for a healthcare web app with IAM, encryption, and automated infrastructure pipeline.</p>
+          <div class="proj-tags"><span class="ptag">Docker</span><span class="ptag">Terraform</span><span class="ptag">GDPR</span></div>
+        </div>
+        <div class="proj-card" onclick="window.open('https://github.com/Sarah0079ja/CICD-Web-deployments/tree/main/Boardgame','_blank')">
+          <div class="proj-thumb pt-6"><div class="proj-arrow-btn">↗</div></div>
+          <div class="proj-cat">CI/CD · Web Deploy</div>
+          <div class="proj-title">Boardgame CI/CD Deployment</div>
+          <p class="proj-desc">Automated build, test, and deploy pipeline with branch-based environment strategy and rollback capabilities.</p>
+          <div class="proj-tags"><span class="ptag">GitHub Actions</span><span class="ptag">Docker</span><span class="ptag">CI/CD</span></div>
+        </div>
       </div>
-      <div class="proj-card reveal d3" onclick="window.open('https://github.com/Sarah0079ja/vector8-devops-poc','_blank')">
-        <div class="proj-thumb pt-3"><div class="proj-arrow-btn">↗</div></div>
-        <div class="proj-cat">Proof of Concept · GCP</div>
-        <div class="proj-title">Vector8 DevOps PoC</div>
-        <p class="proj-desc">Cloud-native DevOps patterns from scratch — IaC automation, container orchestration, GitOps workflows, and monitoring on GCP.</p>
-        <div class="proj-tags"><span class="ptag">Terraform</span><span class="ptag">GitOps</span><span class="ptag">GCP</span></div>
-      </div>
-      <div class="proj-card reveal d4" onclick="window.open('https://github.com/Sarah0079ja/Fullstack-devops-app','_blank')">
-        <div class="proj-thumb pt-4"><div class="proj-arrow-btn">↗</div></div>
-        <div class="proj-cat">Full Stack · DevOps</div>
-        <div class="proj-title">Full-Stack DevOps App</div>
-        <p class="proj-desc">End-to-end containerised React/Node.js app with production CI/CD pipeline and cloud infrastructure provisioned via code.</p>
-        <div class="proj-tags"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">Docker</span></div>
-      </div>
-      <div class="proj-card reveal d5" onclick="window.open('https://github.com/Sarah0079ja/oestopath-demo','_blank')">
-        <div class="proj-thumb pt-5"><div class="proj-arrow-btn">↗</div></div>
-        <div class="proj-cat">Healthcare · GDPR</div>
-        <div class="proj-title">Osteopath Demo Deployment</div>
-        <p class="proj-desc">GDPR-aware cloud deployment for a healthcare web app with IAM, encryption, and automated infrastructure pipeline.</p>
-        <div class="proj-tags"><span class="ptag">Docker</span><span class="ptag">Terraform</span><span class="ptag">GDPR</span></div>
-      </div>
-      <div class="proj-card reveal d6" onclick="window.open('https://github.com/Sarah0079ja/CICD-Web-deployments/tree/main/Boardgame','_blank')">
-        <div class="proj-thumb pt-6"><div class="proj-arrow-btn">↗</div></div>
-        <div class="proj-cat">CI/CD · Web Deploy</div>
-        <div class="proj-title">Boardgame CI/CD Deployment</div>
-        <p class="proj-desc">Automated build, test, and deploy pipeline with branch-based environment strategy and rollback capabilities.</p>
-        <div class="proj-tags"><span class="ptag">GitHub Actions</span><span class="ptag">Docker</span><span class="ptag">CI/CD</span></div>
-      </div>
+    </div>
     </div>
   </div>
 </section>
